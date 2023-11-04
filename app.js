@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import homerouter from './src/routes/HomeRoutes';
 import userrouter from './src/routes/UserRoutes';
 import loginrouter from './src/routes/LoginRoutes';
+import alunorouter from './src/routes/AlunoRoutes';
 import './src/database';
 
 dotenv.config();
@@ -24,6 +25,7 @@ class App {
     this.app.use('/api', homerouter);
     this.app.use('/api/users/', userrouter);
     this.app.use('/api/login/', loginrouter);
+    this.app.use('/api/aluno/', alunorouter);
   }
 }
 
