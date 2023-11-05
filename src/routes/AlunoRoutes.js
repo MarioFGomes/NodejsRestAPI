@@ -7,7 +7,7 @@ const router = new Router();
 
 router.get('/', alunoController.index);
 router.post('/', TokenValidator, alunoController.store);
-router.get('/show', TokenValidator, alunoController.show);
+router.get('/show', alunoController.show);
 router.put('/', TokenValidator, alunoController.update);
 router.delete('/', TokenValidator, alunoController.delete);
 
