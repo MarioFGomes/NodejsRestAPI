@@ -1,47 +1,49 @@
 import { Model, DataTypes } from 'sequelize';
+import appConfig from '../config/appConfig';
 
-export default class Aluno extends Model {
+export default class Foto extends Model {
   static init(sequelize) {
     super.init(
 
       {
-        nome: {
+        originalname: {
           type: DataTypes.STRING,
           allowNull: false,
           defaultValue: '',
           validate: {
-            len: {
-              args: [4, 255],
-              msg: 'nome must by 6 and 50 characters',
+            notEmpty: {
+              msg: 'field cannot be empty',
             },
           },
         },
-        sobrenome: {
+        filename: {
           type: DataTypes.STRING,
           allowNull: false,
           defaultValue: '',
           validate: {
-            len: {
-              args: [4, 255],
-              msg: 'Sobrenome must by 6 and 50 characters',
+            notEmpty: {
+              msg: 'field cannot be empty',
             },
           },
         },
-        Datanascimento: {
-          type: DataTypes.DATE,
-          allowNull: false,
+
+        url: {
+          type: DataTypes.VIRTUAL,
+          get() {
+            return `${appConfig.url}/images/${this.getDataValue('filename')}`;
+          },
         },
 
       },
       {
         sequelize,
-        modelName: 'Aluno',
+        modelName: 'Foto',
       },
     );
     return this;
   }
 
   static associate(models) {
-    this.hasMany(models.Foto, { foreignKey: 'aluno_id' });
+    this.belongsTo(models.Aluno, { foreignKey: 'aluno_id' });
   }
 }

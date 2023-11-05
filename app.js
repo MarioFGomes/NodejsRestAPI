@@ -1,6 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import express from 'express';
 import dotenv from 'dotenv';
+import { resolve } from 'path';
 import homerouter from './src/routes/HomeRoutes';
 import userrouter from './src/routes/UserRoutes';
 import loginrouter from './src/routes/LoginRoutes';
@@ -20,6 +21,7 @@ class App {
   middleware() {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
+    this.app.use(express.static(resolve(__dirname, 'upload')));
   }
 
   routes() {
