@@ -14,7 +14,11 @@ class LoginController {
     const token = Jwt.sign({ id, email }, process.env.TokenSecret, {
       expiresIn: process.env.TokenDuration,
     });
-    return res.json({ token });
+    return res.json({ token,User :{
+      nome:user.nome,
+      id:user.id,
+      email:user.email
+    }});
   }
 }
 

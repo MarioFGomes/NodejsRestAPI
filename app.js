@@ -13,6 +13,21 @@ import './src/database';
 
 dotenv.config();
 
+const whiteList=[
+  'https://Appreact.litoteca.com',
+  'http://localhost:3000'
+]
+
+const corsOption={
+  origin:function(origin,callback){
+    if(whiteList.indexOf(origin)!=-1 || !origin){
+      callback(null,true);
+    }else{
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}
+
 class App {
   constructor() {
     this.app = express();
@@ -21,7 +36,7 @@ class App {
   }
 
   middleware() {
-    this.app.use(cors);
+    this.app.use(cors(corsOption));
     this.app.use(helmet());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
